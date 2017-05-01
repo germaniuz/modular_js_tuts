@@ -1,19 +1,28 @@
-doctype 5
+doctype html
 html
 	head
 		title Modular javasctript tutorial
 		meta(name="viewport", content="width=device-width, initial-scale=1.0")
 		link(rel='stylesheet', href="css/app.css")
-	
+
 	body
 		.container
-			h1 Modular javasctript tutorial
-			form
+			#peopleModule
+				h1 Modular javasctript tutorial
 				.row.form-group
 					.col-8.col-md-4
-						input.form-control
-					.col-4col-md-2.pl-0
+						input.form-control(placeholder="name")
+					.col-4.col-md-2.pl-0
 						button.btn.btn-primary.w-100(type="submit") Добавить
-
-
+				.col-12
+					ul#people
+						script(id="people-template", type="text/template")
+							| {{#people}}
+							|	<li>
+							|		<span>{{.}}</span>
+							|		<i class="del">X</i>
+							| </li>
+							| {{/people}}
+		script(src="js/jquery.min.js")
+		script(src="js/mustache.min.js")
 		script(src="js/app.js")

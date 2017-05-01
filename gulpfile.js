@@ -3,8 +3,9 @@ var browserSync = require('browser-sync').create();
 var sass = require('gulp-sass');
 var uglify = require('gulp-uglify');
 var pug = require('gulp-pug');
+// var inject = require('gulp-inject');
 
-gulp.task('watch', ['js', 'sass', 'pug'], function(){
+gulp.task('watch', ['js', 'sass', 'pug', 'copy_vendor_js'], function(){
   browserSync.init({
     server: "./public"
   });
@@ -33,5 +34,21 @@ gulp.task('pug', function(){
               .pipe(pug({pretty: true}))
               .pipe(gulp.dest("public"))
               .pipe(browserSync.stream());
-})
+});
 
+gulp.task('copy_vendor_js', function() {
+  var vendor_scripts = [
+    'node_modules/jquery/dist/jquery.min.js',
+    'node_modules/mustache/mustache.min.js'
+  ];
+
+  return gulp.src(vendor_scripts)
+              .pipe(gulp.dest('public/js'));
+});
+
+// gulp.task('inject_js', function(){
+//   var sources = gulp.src('public/js/*.js', {read:false});
+//   return gulp.src('public/index.html')
+//               .pipe(inject(sources))
+//               .pipe(gulp.dest('public'));
+// });
