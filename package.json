@@ -1,0 +1,19 @@
+{
+  "name": "modular_js_tutorial",
+  "version": "1.0.0",
+  "description": "Tutorial of write javascript with modular pattern",
+  "main": "public/index.html",
+  "license": "MIT",
+  "dependencies": {
+    "bootstrap": "4.0.0-alpha.6",
+    "gulp": "^3.9.1",
+    "gulp-cli": "^1.3.0",
+    "gulp-uglify": "^2.1.2",
+    "jquery": "^3.2.1"
+  },
+  "devDependencies": {
+    "browser-sync": "^2.18.8",
+    "gulp-pug": "^3.3.0",
+    "gulp-sass": "^3.1.0"
+  }
+}
