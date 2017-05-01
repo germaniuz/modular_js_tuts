@@ -30,7 +30,7 @@ gulp.task('js', function(){
 
 gulp.task('pug', function(){
   return gulp.src("source/views/*.pug")
-              .pipe(pug({}))
+              .pipe(pug({pretty: true}))
               .pipe(gulp.dest("public"))
               .pipe(browserSync.stream());
 })
