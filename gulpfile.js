@@ -17,7 +17,9 @@ gulp.task('watch', ['js', 'sass', 'pug', 'copy_vendor_js'], function(){
 
 gulp.task('sass', function(){
   return gulp.src("source/scss/*.scss")
-              .pipe(sass())
+              // .pipe(sass())
+              // .on('error', swallowError)
+              .pipe(sass().on('error', sass.logError))
               .pipe(gulp.dest("public/css"))
               .pipe(browserSync.stream());
 });
@@ -25,6 +27,7 @@ gulp.task('sass', function(){
 gulp.task('js', function(){
   return gulp.src("source/js/*.js")
               .pipe(uglify())
+              .on('error', swallowError)
               .pipe(gulp.dest("public/js"))
               .pipe(browserSync.stream());
 });
@@ -32,6 +35,7 @@ gulp.task('js', function(){
 gulp.task('pug', function(){
   return gulp.src("source/views/*.pug")
               .pipe(pug({pretty: true}))
+              .on('error', swallowError)
               .pipe(gulp.dest("public"))
               .pipe(browserSync.stream());
 });
@@ -46,9 +50,9 @@ gulp.task('copy_vendor_js', function() {
               .pipe(gulp.dest('public/js'));
 });
 
-// gulp.task('inject_js', function(){
-//   var sources = gulp.src('public/js/*.js', {read:false});
-//   return gulp.src('public/index.html')
-//               .pipe(inject(sources))
-//               .pipe(gulp.dest('public'));
-// });
+
+//  Function for not crash watching on syntax errors
+function swallowError (error) {
+  console.log(error.toString());
+  this.emit('end');
+}
