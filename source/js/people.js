@@ -1,8 +1,8 @@
 //  People JS Module
 
 var people = (function(){
-	var people = [];
-	
+	var people = ['German', 'Sofia'];
+
 	//  Caching DOM
 	var $el = $('#peopleModule');
 	var $button = $el.find('button');
@@ -11,30 +11,35 @@ var people = (function(){
 	var template = $el.find('#people-template').html();
 
 	//  Bind events
-	$button.on('click', this.addPerson.bind(this));
-	$ul.delegate('i.del', 'click', this.deletePerson.bind(this));
+	$button.on('click', addPerson);
+	$ul.delegate('i.del', 'click', deletePerson);
 
 	//  Render the module
-	render();
+	_render();
 
 	//  Define module methods
 
-	function render(){
-		$ul.html(Mustache.render(this.template, {people: people}));
+	function _render(){
+		$ul.html(Mustache.render(template, {people: people}));
 	}
 
-	function addPerson(name){
-		people.push($input.val());
-		render();
-		$input.value('');
+	function addPerson(value){
+		var name = (typeof value === "string") ? value : $input.val();
+		people.push(name);
+		_render();
+		$input.val('');
 	}
 
-	function deletePerson(value){
-		var $remove = $(e.target).closest('li');
-		var i = $ul.find('li').index($remove);
-
+	function deletePerson(event){
+		var i;
+		if (typeof event === "number") {
+			i = event;
+		} else {
+			var $remove = $(event.target).closest('li');
+			i = $ul.find('li').index($remove);
+		}
 		people.splice(i, 1);
-		render();
+		_render();
 	}
 
 	return {
